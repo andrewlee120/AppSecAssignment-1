@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Resizer</title>
+
+    <script type = "text/javascript">
+    function upload() {
+      var image = document.getElementById("image").files[0];
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        var original = document.createElement("img");
+        var resized = document.createElement("img");
+        original.src = event.target.result;
+        resized.src = event.target.result;
+        var dimension = 0;
+        if (original.height > original.width) {
+          dimension = original.width;
+        }
+        else {
+          dimension = original.height;
+        }
+    
+        resized.height = dimension;
+        resized.width = dimension;
+        document.body.appendChild(original);
+        document.body.appendChild(document.createElement("BR"));
+        document.body.appendChild(resized);
+        document.body.appendChild(document.createElement("BR"));
+      }
+      reader.readAsDataURL(image);
+    }
+    </script>
+  </head>
+
+  <body style = "background-color:#e1e8f0;">
+    <h1> Image Resizer </h1>
+    <br>
+    <input type = "file" id = "image" accept = "image/*"/>
+    <button type = "submit" onclick = "upload()">Upload!</button>
+    <br>
+    <br>
+  </body>
+</head>
+</html> 
