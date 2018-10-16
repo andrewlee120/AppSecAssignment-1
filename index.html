@@ -8,24 +8,28 @@
       var image = document.getElementById("image").files[0];
       var reader = new FileReader();
       reader.onload = function(event) {
-        var original = document.createElement("img");
-        var resized = document.createElement("img");
+        var original = new Image();
         original.src = event.target.result;
-        resized.src = event.target.result;
-        var dimension = 0;
-        if (original.height > original.width) {
-          dimension = original.width;
-        }
-        else {
-          dimension = original.height;
-        }
-    
-        resized.height = dimension;
-        resized.width = dimension;
+        original.onload = function() {
+          original.height = original.height;
+          original.width = original.width;
+        } 
         document.body.appendChild(original);
+        var resized = new Image();
+        resized.src = event.target.result;
+        resized.onload = function() {
+          let dimension = 0;
+          if (resized.height > resized.width) {
+            dimension = resized.width;
+          }
+          else {
+            dimension = resized.height
+          }
+          resized.height = dimension;
+          resized.width = dimension;
+        }
         document.body.appendChild(document.createElement("BR"));
         document.body.appendChild(resized);
-        document.body.appendChild(document.createElement("BR"));
       }
       reader.readAsDataURL(image);
     }
